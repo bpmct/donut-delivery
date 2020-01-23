@@ -1,12 +1,15 @@
 class MenuItem extends React.Component {
   render() {
-    console.log(this.props.product);
     const product = this.props.product;
 
     return (
-      <div className="col-4 menu-item">
+      <div className="col-6 menu-item">
         <div className="card">
-          <img src={product.image.public_url} class="card-img-top" alt="..." />
+          <img
+            src={product.image.public_url}
+            className="card-img-top"
+            alt="..."
+          />
           <div className="card-body">
             <h5 className="card-title">{product.name}</h5>
             <p>

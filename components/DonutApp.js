@@ -30,10 +30,6 @@ const HeadTags = props => (
 );
 
 class DonutApp extends React.Component {
-  state = {
-    order: {}
-  };
-
   render() {
     const siteName = "🍩 Donut Shop Delivery";
     return (
