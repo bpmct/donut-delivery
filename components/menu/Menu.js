@@ -7,7 +7,13 @@ class Menu extends React.Component {
         <h2>Our menu:</h2>
         <div className="row">
           {this.props.products.map((product, index) => {
-            return <MenuItem key={product.id} product={product} />;
+            return (
+              <MenuItem
+                key={product.id}
+                product={product}
+                orderFunctions={this.props.orderFunctions}
+              />
+            );
           })}
         </div>
       </div>

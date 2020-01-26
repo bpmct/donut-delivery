@@ -3,14 +3,14 @@ import builton from "../components/BuiltOn";
 import DonutApp from "../components/DonutApp";
 import Link from "next/link";
 import Menu from "../components/menu/Menu";
-import Order from "../components/Order";
+import Order from "../components/order/Order";
+
+import base from "../components/Base";
 
 class Index extends React.Component {
   state = {
     products: [],
-    order: {
-      pizza: 12
-    }
+    order: []
   };
 
   async componentDidMount() {
@@ -27,7 +27,45 @@ class Index extends React.Component {
 
   orderFunctions = {
     addToOrder: productID => {
-      alert("Adding " + productID + " to order");
+      let order = this.state.order;
+
+      //Check if there is already one of this product in the order.
+      let existingOrderIndex = order.findIndex(orderItem => {
+        return orderItem.product == productID;
+      });
+
+      //If there is an index with this order
+      if (existingOrderIndex !== -1) {
+        order[existingOrderIndex].quantity++;
+      } else {
+        order.push({
+          product: productID,
+          quantity: 1
+        });
+      }
+
+      this.setState({ order });
+    },
+    removeFromOrder: productID => {
+      let order = this.state.order;
+
+      //Check if there is already one of this product in the order.
+      let existingOrderIndex = order.findIndex(orderItem => {
+        return orderItem.product == productID;
+      });
+
+      //If there is an index with this order
+      if (order[existingOrderIndex].quantity > 1) {
+        order[existingOrderIndex].quantity--;
+      } else {
+        order.splice(existingOrderIndex, 1);
+      }
+
+      //Update the state object
+      this.setState({ order });
+    },
+    placeOrder: () => {
+      console.log("Placing an order...");
     }
   };
 

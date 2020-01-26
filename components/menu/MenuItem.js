@@ -16,7 +16,14 @@ class MenuItem extends React.Component {
               <strong>Price: </strong> ${product.price}
             </p>
             {/* <p>{product.description}</p> */}
-            <button className="btn btn-success btn-sm">🛒 Add to order</button>
+            <button
+              className="btn btn-success btn-sm"
+              onClick={e => {
+                this.props.orderFunctions.addToOrder(product.id);
+              }}
+            >
+              🛒 Add to order
+            </button>
           </div>
         </div>
       </div>
