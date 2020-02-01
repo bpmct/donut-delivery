@@ -2,3 +2,4 @@
 node_modules
 .next
 configuration/api_config.js
+now.json
