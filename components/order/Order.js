@@ -32,8 +32,19 @@ class Order extends React.Component {
             🚗 Place your order
           </button>
         ) : (
-          <p></p>
+          <p>Add an item to your cart to get started</p>
         )}
+
+        <hr />
+        <p className="text-center">👤 You are checking out as a guest.</p>
+        <p className="text-center">
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => this.props.accountFunctions.authenticate("Google")}
+          >
+            <i className="fa fa-google"></i> Log in with Google
+          </button>
+        </p>
       </div>
     );
   }
