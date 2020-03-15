@@ -216,7 +216,9 @@ class Index extends React.Component {
           🍩🍩🍩 Donuts Straight to Your Home! 🍩🍩🍩
         </h1>
         <hr />
-        <p>If you have any questions, please lorem ipsum dolar set imet...</p>
+        <p>
+          If you have any questions, please lorem ipsum dolar set imet mei...
+        </p>
         <br />
         <br />
         <div className="row">
