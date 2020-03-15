@@ -32,7 +32,7 @@ class Order extends React.Component {
             🚗 Place your order
           </button>
         ) : (
-          <p></p>
+          <p>Add an item to your cart to get started</p>
         )}
       </div>
     );
