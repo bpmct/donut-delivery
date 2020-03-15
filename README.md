@@ -20,11 +20,17 @@ For now though, here's what you have to do:
 - Create a [Google Firebase project](https://firebase.com) and link it in to your BuiltOn dashboard.
 - Configure Firebase Auth to accept Google logins & guest accounts
 - Clone this repo and `npm install`
-- Configure the app with environment variables or rename `next.config.sample.js` to `next.config.js` and edit the variables there.
-- Add some products in the [BuiltOn Dashboard](https://dashboard.builton.dev/order_process/products) to make things more interesting
-- Start developing with `npm run dev`
+- Configure the app's enviromnent variables with your API keys:
 
-If you want to deploy to ZEIT or another hosting provider, make sure you properly set your environment vars.
+  - If you want to deploy to ZEIT/Now:
+    - For local development, add a `.env.build` file (use `.env.build.sample` as reference)
+    - Add [now secrets](https://zeit.co/docs/v2/build-step#adding-secrets) based off the @ definitions in `now.json`
+    - Begin developing with `now dev` (or `npx now dev` if you don't have now installed globally)
+  - If you just want to build locally (or deploy elseware):
+    - Add your API keys `next.config.js` instead of the `process.env` definitions
+    - Start developing with `npm run dev`
+
+- Add some products in the [BuiltOn Dashboard](https://dashboard.builton.dev/order_process/products) to make things more interesting 🚀
 
 ---
 

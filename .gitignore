@@ -1,7 +1,5 @@
 .vscode
 node_modules
 .next
-configuration/api_config.js
-next.config.js
 .now/
 .env.build

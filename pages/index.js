@@ -7,7 +7,6 @@ import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
 
 import Builton from "@builton/core-sdk";
-// import { builtonConfig } from "../configuration/api_config";
 
 let builton, builton_auth;
 
