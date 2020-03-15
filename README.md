@@ -2,8 +2,6 @@
 
 **⚠️ Warning: this app is incomplete, do not use it in production!**
 
----
-
 A React (Next.js) donut delivery app. This app uses [BuiltOn](https://builton.dev) and their JavaScript SDK in order to manage app data such as:
 
 - Users (↔️ with Firebase Auth)
