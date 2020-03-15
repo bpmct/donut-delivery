@@ -1,8 +1,8 @@
 module.exports = {
   env: {
-    BUILTON_APIKEY: "",
-    FIREBASE_APIKEY: "",
-    FIREBASE_AUTH_DOMAIN: "",
-    FIREBASE_DATABASE_URL: ""
+    builton_apikey: "",
+    firebase_apikey: "",
+    firebase_auth_domain: "",
+    firebase_database_url: ""
   }
 };

@@ -4,3 +4,4 @@ node_modules
 configuration/api_config.js
 now.json
 next.config.js
+.now

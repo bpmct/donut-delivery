@@ -42,7 +42,7 @@ class Index extends React.Component {
 
     //Set up BuiltOn without any user data yet...
     builton = await new Builton({
-      apiKey: process.env.BUILTON_APIKEY
+      apiKey: process.env.builton_apikey
     });
 
     const products = await builton.products.get({
@@ -142,7 +142,7 @@ class Index extends React.Component {
     authData.user.getIdToken().then(async idToken => {
       //Re-initialize BuiltOn with the user data
       builton = await new Builton({
-        apiKey: process.env.BUILTON_APIKEY,
+        apiKey: process.env.builton_apikey,
         bearerToken: idToken
       });
       const body = {

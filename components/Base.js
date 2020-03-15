@@ -11,9 +11,9 @@ import "firebase/database";
 //More info here: https://github.com/zeit/next.js/issues/1999
 const firebaseApp = !firebase.apps.length
   ? firebase.initializeApp({
-      apiKey: process.env.FIREBASE_APIKEY,
-      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-      databaseURL: process.env.FIREBASE_DATABASE_URL
+      apiKey: process.env.firebase_apikey,
+      authDomain: process.env.firebase_auth_domain,
+      databaseURL: process.env.firebase_database_url
     })
   : firebase.app();
 
