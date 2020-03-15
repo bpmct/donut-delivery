@@ -3,9 +3,6 @@ import Rebase from "re-base";
 import firebase from "firebase/app";
 import "firebase/database";
 
-//Get Firebase configuration
-// import { firebaseConfig } from "../configuration/api_config";
-
 //Initialize firebase if it hasn't already been initialized...
 //The ternary logic is needed due to a next.js constraint.
 //More info here: https://github.com/zeit/next.js/issues/1999

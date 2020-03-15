@@ -1,6 +1,8 @@
 .vscode
 node_modules
 .next
-configuration/api_config.js
+.now/
+.env.build
+# Even though these are comitted, we won't look for changes so people can deploy to other places
 now.json
 next.config.js
