@@ -7,7 +7,7 @@ import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
 
 import Builton from "@builton/core-sdk";
-import { builtonConfig } from "../configuration/api_config";
+// import { builtonConfig } from "../configuration/api_config";
 
 let builton, builton_auth;
 
@@ -41,7 +41,9 @@ class Index extends React.Component {
     });
 
     //Set up BuiltOn without any user data yet...
-    builton = await new Builton(builtonConfig);
+    builton = await new Builton({
+      apiKey: process.env.BUILTON_APIKEY
+    });
 
     const products = await builton.products.get({
       size: 10,
@@ -140,7 +142,7 @@ class Index extends React.Component {
     authData.user.getIdToken().then(async idToken => {
       //Re-initialize BuiltOn with the user data
       builton = await new Builton({
-        apiKey: builtonConfig.apiKey,
+        apiKey: process.env.BUILTON_APIKEY,
         bearerToken: idToken
       });
       const body = {
