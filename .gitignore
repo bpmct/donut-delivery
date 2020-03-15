@@ -4,3 +4,4 @@ node_modules
 configuration/api_config.js
 next.config.js
 .now/
+.env.build
