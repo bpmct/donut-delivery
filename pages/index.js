@@ -117,7 +117,7 @@ class Index extends React.Component {
     //   owner: store.owner || authData.user.uid
     // });
 
-    let firstName = "Guest",
+    let firstName = "",
       lastName = "";
 
     //Check if the user has a displayName
@@ -151,11 +151,27 @@ class Index extends React.Component {
       builton.users
         .authenticate(body)
         .then(user => {
-          // Add the user to our state :)
-          this.setState({ user });
+          // Check if any user details have changed & update if necessary
+          if (
+            body.first_name != user.first_name ||
+            body.last_name != user.last_name ||
+            body.email != user.email
+          ) {
+            builton.users
+              .setMe()
+              .update({
+                first_name: body.first_name,
+                last_name: body.last_name,
+                email: body.email
+              })
+              .then(user => {
+                //Sloppy code, but this ensures the latest version of the user is in state...
+                this.setState({ user });
+              });
+          }
 
-          // Check if any details have changed]
-          console.log("BuiltOn user data:", user);
+          // Add the user to our state
+          this.setState({ user });
         })
         .catch(err => {
           console.error(err.response.body);

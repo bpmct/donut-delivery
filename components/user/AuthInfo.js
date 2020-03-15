@@ -1,8 +1,6 @@
 class AuthInfo extends React.Component {
   render() {
-    console.log(this.props.user);
-
-    if (!this.props.user.first_name || this.props.user.first_name == "Guest") {
+    if (!this.props.user.first_name || this.props.user.first_name == "") {
       return (
         <div className="AuthInfo">
           <hr />
