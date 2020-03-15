@@ -4,6 +4,7 @@ import DonutApp from "../components/DonutApp";
 import Link from "next/link";
 import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
+import AuthInfo from "../components/user/AuthInfo";
 
 import Builton from "@builton/core-sdk";
 import { builtonConfig } from "../configuration/api_config";
@@ -116,8 +117,6 @@ class Index extends React.Component {
     //   owner: store.owner || authData.user.uid
     // });
 
-    console.log(authData);
-
     let firstName = "Guest",
       lastName = "";
 
@@ -152,10 +151,11 @@ class Index extends React.Component {
       builton.users
         .authenticate(body)
         .then(user => {
-          // Update DOM
+          // Add the user to our state :)
+          this.setState({ user });
 
           // Check if any details have changed]
-          console.log(user);
+          console.log("BuiltOn user data:", user);
         })
         .catch(err => {
           console.error(err.response.body);
@@ -165,12 +165,30 @@ class Index extends React.Component {
 
   accountFunctions = {
     authenticate: provider => {
-      console.log("Authenticating with", provider);
       const authProvider = new firebase.auth[`${provider}AuthProvider`]();
+
+      //Ensure that we ask for a specific account every time
+      authProvider.setCustomParameters({
+        prompt: "select_account"
+      });
       firebaseApp
         .auth()
         .signInWithPopup(authProvider)
         .then(this.authHandler);
+    },
+    logOut: () => {
+      firebaseApp
+        .auth()
+        .signOut()
+        .then(
+          function() {
+            // Sign-out successful.
+          },
+          function(error) {
+            // An error happened.
+            console.log(error);
+          }
+        );
     }
   };
   render() {
@@ -197,6 +215,9 @@ class Index extends React.Component {
               products={this.state.products}
               order={this.state.order}
               orderFunctions={this.orderFunctions}
+            />
+            <AuthInfo
+              user={this.state.user}
               accountFunctions={this.accountFunctions}
             />
           </div>
