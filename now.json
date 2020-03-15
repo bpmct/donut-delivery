@@ -1,0 +1,10 @@
+{
+  "build": {
+    "env": {
+      "builton_apikey": "@builton_apikey",
+      "firebase_apikey": "@firebase_apikey",
+      "firebase_auth_domain": "@firebase_auth_domain",
+      "firebase_database_url": "@firebase_database_url"
+    }
+  }
+}
