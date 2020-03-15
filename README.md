@@ -26,8 +26,8 @@ For now though, here's what you have to do:
   ```
   BUILTON_APIKEY=
   FIREBASE_APIKEY=
-  FIREBASE_AUTH_DOMAIN:
-  FIREBASE_DATABASE_URL:
+  FIREBASE_AUTH_DOMAIN=
+  FIREBASE_DATABASE_URL=
   ```
 - Add some products in the [BuiltOn Dashboard](https://dashboard.builton.dev/order_process/products) to make things more interesting
 - Start developing with `npm run dev`
