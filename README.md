@@ -24,6 +24,8 @@ For now though, here's what you have to do:
 - Add some products in the [BuiltOn Dashboard](https://dashboard.builton.dev/order_process/products) to make things more interesting
 - Start developing with `npm run dev`
 
+If you want to deploy to ZEIT or another hosting provider, make sure you properly set your environment vars.
+
 ---
 
 ℹ Disclaimer: I do consulting work for BuiltOn and needed to make a delivery app for my friend's donut shop. I figured making it open source would be a fun way to show BuiltOn's capabilities! 😁
