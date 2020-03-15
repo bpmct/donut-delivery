@@ -20,13 +20,7 @@ For now though, here's what you have to do:
 - Create a [Google Firebase project](https://firebase.com) and link it in to your BuiltOn dashboard.
 - Configure Firebase Auth to accept Google logins & guest accounts
 - Clone this repo and `npm install`
-- You can configure the app with environment variables or create a `.env` file in the project root.
-  ```
-  BUILTON_APIKEY=
-  FIREBASE_APIKEY=
-  FIREBASE_AUTH_DOMAIN=
-  FIREBASE_DATABASE_URL=
-  ```
+- Configure the app with environment variables or rename `next.config.sample.js` to `next.config.js` and edit the variables there.
 - Add some products in the [BuiltOn Dashboard](https://dashboard.builton.dev/order_process/products) to make things more interesting
 - Start developing with `npm run dev`
 
