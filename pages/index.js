@@ -1,10 +1,12 @@
-// import builton from "../components/BuiltOn";
-
 import DonutApp from "../components/DonutApp";
 import Link from "next/link";
 import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
+
+// local storage so that we can store the user's cart
+// todo: look into if this is actually necessary
+import ls from "local-storage";
 
 import Builton from "@builton/core-sdk";
 
@@ -22,6 +24,13 @@ class Index extends React.Component {
   };
 
   async componentDidMount() {
+    let storedOrder = {};
+
+    // check if the cart is already set in local storage
+    if (ls.get("cart")) {
+      storedOrder = JSON.parse(ls.get("cart"));
+    }
+
     //Check if a user is logged in and call authHandler to update state
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -39,7 +48,7 @@ class Index extends React.Component {
       }
     });
 
-    //Set up BuiltOn without any user data yet...
+    // Set up BuiltOn without any user data yet...
     builton = await new Builton({
       apiKey: process.env.BUILTON_APIKEY
     });
@@ -51,8 +60,13 @@ class Index extends React.Component {
     });
 
     this.setState({
-      products: products.current
+      products: products.current,
+      order: storedOrder
     });
+  }
+
+  componentDidUpdate() {
+    ls.set("cart", JSON.stringify(this.state.order));
   }
 
   orderFunctions = {
