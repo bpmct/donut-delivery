@@ -3,9 +3,11 @@ import Link from "next/link";
 import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
+import Checkout from "../components/order/Checkout";
+import ZIPAlert from "../components/ZIPAlert";
 
 // local storage so that we can store the user's cart
-// todo: look into if this is actually necessary
+// TODO: look into if this is actually necessary
 import ls from "local-storage";
 
 import Builton from "@builton/core-sdk";
@@ -18,6 +20,8 @@ import base, { firebaseApp } from "../components/Base";
 
 class Index extends React.Component {
   state = {
+    step: "order",
+    zipCode: null,
     products: [],
     order: [],
     user: {}
@@ -25,10 +29,16 @@ class Index extends React.Component {
 
   async componentDidMount() {
     let storedOrder = {};
+    let currentStep = "order";
+    let zipCode = null;
 
-    // check if the cart is already set in local storage
-    if (ls.get("cart")) {
+    // check if the data is already set in local storage
+    if (ls.get("cart") || ls.get("currentStep")) {
       storedOrder = JSON.parse(ls.get("cart"));
+      currentStep = JSON.parse(ls.get("currentStep"));
+    }
+    if (ls.get("zipCode")) {
+      zipCode = JSON.parse(ls.get("zipCode"));
     }
 
     //Check if a user is logged in and call authHandler to update state
@@ -61,12 +71,16 @@ class Index extends React.Component {
 
     this.setState({
       products: products.current,
-      order: storedOrder
+      order: storedOrder,
+      step: currentStep,
+      zipCode
     });
   }
 
   componentDidUpdate() {
     ls.set("cart", JSON.stringify(this.state.order));
+    ls.set("currentStep", JSON.stringify(this.state.step));
+    ls.set("zipCode", JSON.stringify(this.state.zipCode));
   }
 
   orderFunctions = {
@@ -109,8 +123,14 @@ class Index extends React.Component {
       this.setState({ order });
     },
     placeOrder: () => {
-      console.log("Placing an order...");
+      console.log(this.state.order);
+
+      this.setState({ step: "checkout" });
     }
+  };
+
+  backToOrder = () => {
+    this.setState({ step: "order" });
   };
 
   //This runs when a user logs in
@@ -194,6 +214,13 @@ class Index extends React.Component {
     });
   };
 
+  setZipCode = zipCode => {
+    this.setState({ zipCode });
+  };
+  resetZipCode = () => {
+    this.setState({ zipCode: null });
+  };
+
   accountFunctions = {
     authenticate: provider => {
       const authProvider = new firebase.auth[`${provider}AuthProvider`]();
@@ -222,17 +249,19 @@ class Index extends React.Component {
         );
     }
   };
-  render() {
+
+  orderScreen() {
     return (
-      <DonutApp>
+      <div className="orderScreen">
         <h1 className="text-center">
           🍩🍩🍩 Donuts Straight to Your Home! 🍩🍩🍩
         </h1>
         <hr />
-        <p>
-          If you have any questions, please lorem ipsum dolar set imet mei...
-        </p>
-        <br />
+        <ZIPAlert
+          zipCode={this.state.zipCode}
+          setZipCode={this.setZipCode}
+          resetZipCode={this.resetZipCode}
+        />
         <br />
         <div className="row">
           <div className="col-6">
@@ -258,8 +287,24 @@ class Index extends React.Component {
         <Link href="about">
           <a title="About">About us link</a>
         </Link>
-      </DonutApp>
+      </div>
     );
+  }
+
+  checkoutScreen() {
+    return (
+      <Checkout
+        order={this.state.order}
+        products={this.state.products}
+        editOrder={this.backToOrder}
+      />
+    );
+  }
+
+  render() {
+    if (this.state.step == "order")
+      return <DonutApp>{this.orderScreen()}</DonutApp>;
+    else return <DonutApp>{this.checkoutScreen()}</DonutApp>;
   }
 }
 
