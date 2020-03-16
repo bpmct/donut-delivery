@@ -12,7 +12,7 @@ A React (Next.js) donut delivery app. This app uses [BuiltOn](https://builton.de
 
 ## Installation
 
-Long installs stuck. Especially if you just want to start playing around. We're planning on making a simple script that makes it easy to start coding 😊
+Long installs stuck. Especially if you just want to start playing around. We're planning on making a [simple script](https://github.com/bpmct/donut-delivery/issues/5) that makes it easy to start coding 😊
 
 For now though, here's what you have to do:
 
