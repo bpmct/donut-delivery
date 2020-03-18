@@ -1,20 +1,19 @@
-class ZIPAlert extends React.Component {
+class ZIPInfo extends React.Component {
   constructor() {
     super();
     this.zipInput = React.createRef();
   }
 
-  resetZipCode = e => {
+  resetZIPCode = e => {
     e.preventDefault();
-    console.log("EPIC THIGNS HAPPENED");
-    this.props.resetZipCode();
+    this.props.resetZIPCode();
   };
 
-  setZipCode = e => {
+  setZIPCode = e => {
     e.preventDefault();
     if (this.zipInput.current.value) {
       let zipCode = this.zipInput.current.value;
-      this.props.setZipCode(zipCode);
+      this.props.setZIPCode(zipCode);
     }
   };
 
@@ -22,7 +21,7 @@ class ZIPAlert extends React.Component {
     return (
       <span>
         Your ZIP Code is set to: <em>{this.props.zipCode}</em>.{" "}
-        <a href="#" onClick={this.resetZipCode}>
+        <a href="#" onClick={this.resetZIPCode}>
           Change
         </a>
       </span>
@@ -31,7 +30,7 @@ class ZIPAlert extends React.Component {
 
   zipUnset() {
     return (
-      <form className="form-inline" onSubmit={this.setZipCode}>
+      <form className="form-inline" onSubmit={this.setZIPCode}>
         Enter your ZIP code to get started:{"  "}
         <input
           style={{ marginLeft: 7 }}
@@ -61,4 +60,4 @@ class ZIPAlert extends React.Component {
   }
 }
 
-export default ZIPAlert;
+export default ZIPInfo;

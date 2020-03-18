@@ -4,10 +4,9 @@ import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
 import Checkout from "../components/order/Checkout";
-import ZIPAlert from "../components/ZIPAlert";
+import ZIPInfo from "../components/user/ZIPInfo";
 
 // local storage so that we can store the user's cart
-// TODO: look into if this is actually necessary
 import ls from "local-storage";
 
 import Builton from "@builton/core-sdk";
@@ -28,7 +27,7 @@ class Index extends React.Component {
   };
 
   async componentDidMount() {
-    let storedOrder = {};
+    let storedOrder = [];
     let currentStep = "order";
     let zipCode = null;
 
@@ -123,8 +122,6 @@ class Index extends React.Component {
       this.setState({ order });
     },
     placeOrder: () => {
-      console.log(this.state.order);
-
       this.setState({ step: "checkout" });
     }
   };
@@ -136,7 +133,6 @@ class Index extends React.Component {
   //This runs when a user logs in
   authHandler = async authData => {
     //This is Wes Bos' code from his course....
-    //TODO: figure out if i'm going to use firebase at all
     // //1. look up the current store in the firebase db
     // const store = await base.fetch(this.props.storeId, { conext: this });
     // //2. claim if if there is no owner
@@ -214,10 +210,10 @@ class Index extends React.Component {
     });
   };
 
-  setZipCode = zipCode => {
+  setZIPCode = zipCode => {
     this.setState({ zipCode });
   };
-  resetZipCode = () => {
+  resetZIPCode = () => {
     this.setState({ zipCode: null });
   };
 
@@ -257,10 +253,10 @@ class Index extends React.Component {
           🍩🍩🍩 Donuts Straight to Your Home! 🍩🍩🍩
         </h1>
         <hr />
-        <ZIPAlert
+        <ZIPInfo
           zipCode={this.state.zipCode}
-          setZipCode={this.setZipCode}
-          resetZipCode={this.resetZipCode}
+          setZIPCode={this.setZIPCode}
+          resetZIPCode={this.resetZIPCode}
         />
         <br />
         <div className="row">
@@ -297,6 +293,10 @@ class Index extends React.Component {
         order={this.state.order}
         products={this.state.products}
         editOrder={this.backToOrder}
+        zipCode={this.state.zipCode}
+        setZIPCode={this.setZIPCode}
+        user={this.state.user}
+        accountFunctions={this.accountFunctions}
       />
     );
   }
