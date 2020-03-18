@@ -16,7 +16,8 @@ class Checkout extends React.Component {
     });
   };
 
-  onCheckout = () => {
+  onCheckout = e => {
+    e.preventDefault();
     console.log("Checkout called 😁");
   };
 
@@ -54,6 +55,7 @@ class Checkout extends React.Component {
                 type="text"
                 className="form-control"
                 name="address1"
+                autoComplete="shipping street-address"
                 value={this.state.address1}
                 onChange={this.handleChange}
                 placeholder="Address Line 1"
@@ -64,6 +66,7 @@ class Checkout extends React.Component {
                 type="text"
                 className="form-control"
                 name="address2"
+                autoComplete="shipping shipping address-level2"
                 value={this.state.address2}
                 onChange={this.handleChange}
                 placeholder="Address Line 2 (Apt/Unit)"
@@ -75,6 +78,7 @@ class Checkout extends React.Component {
                     type="text"
                     className="form-control"
                     name="city"
+                    autoComplete="shipping locality"
                     value={this.state.city}
                     onChange={this.handleChange}
                     placeholder="City"
@@ -86,6 +90,7 @@ class Checkout extends React.Component {
                     name="state"
                     className="form-control"
                     required
+                    autoComplete="shipping region"
                     value={this.state.state}
                     onChange={this.handleChange}
                   >
@@ -148,6 +153,7 @@ class Checkout extends React.Component {
                     type="number"
                     className="form-control"
                     value={this.props.zipCode}
+                    autoComplete="shipping postal-code"
                     onChange={e => {
                       this.props.setZIPCode(e.target.value);
                     }}
