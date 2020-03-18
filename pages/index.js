@@ -28,7 +28,7 @@ class Index extends React.Component {
   };
 
   async componentDidMount() {
-    let storedOrder = {};
+    let storedOrder = [];
     let currentStep = "order";
     let zipCode = null;
 
