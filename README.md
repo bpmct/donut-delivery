@@ -34,4 +34,4 @@ For now though, here's what you have to do:
 
 ---
 
-ℹ Disclaimer: I do consulting work for BuiltOn and needed to make a delivery app for my friend's donut shop. I figured making it open source would be a fun way to show BuiltOn's capabilities! 😁
+ℹ Disclaimer: I do consulting work for BuiltOn and needed to make a delivery app for my friend's donut shop. I figured making it open source would be a fun way to show BuiltOn's capabilities! 🚀
