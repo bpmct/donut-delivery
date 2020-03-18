@@ -6,7 +6,6 @@ class ZIPInfo extends React.Component {
 
   resetZIPCode = e => {
     e.preventDefault();
-    console.log("EPIC THIGNS HAPPENED");
     this.props.resetZIPCode();
   };
 
