@@ -107,6 +107,18 @@ class Checkout extends React.Component {
                     <option value="WY">Wyoming</option>
                   </select>
                 </div>
+                <div className="col">
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={this.props.zipCode}
+                    onChange={e => {
+                      this.props.setZipCode(e.target.value);
+                    }}
+                    name="city"
+                    placeholder="ZIP"
+                  />
+                </div>
               </div>
             </form>
           </div>

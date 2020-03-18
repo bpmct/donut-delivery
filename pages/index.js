@@ -297,6 +297,8 @@ class Index extends React.Component {
         order={this.state.order}
         products={this.state.products}
         editOrder={this.backToOrder}
+        zipCode={this.state.zipCode}
+        setZipCode={this.setZipCode}
       />
     );
   }
