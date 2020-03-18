@@ -113,7 +113,7 @@ class Checkout extends React.Component {
                     className="form-control"
                     value={this.props.zipCode}
                     onChange={e => {
-                      this.props.setZipCode(e.target.value);
+                      this.props.setZIPCode(e.target.value);
                     }}
                     name="city"
                     placeholder="ZIP"

@@ -214,10 +214,10 @@ class Index extends React.Component {
     });
   };
 
-  setZipCode = zipCode => {
+  setZIPCode = zipCode => {
     this.setState({ zipCode });
   };
-  resetZipCode = () => {
+  resetZIPCode = () => {
     this.setState({ zipCode: null });
   };
 
@@ -259,8 +259,8 @@ class Index extends React.Component {
         <hr />
         <ZIPInfo
           zipCode={this.state.zipCode}
-          setZipCode={this.setZipCode}
-          resetZipCode={this.resetZipCode}
+          setZIPCode={this.setZIPCode}
+          resetZIPCode={this.resetZIPCode}
         />
         <br />
         <div className="row">
@@ -298,7 +298,7 @@ class Index extends React.Component {
         products={this.state.products}
         editOrder={this.backToOrder}
         zipCode={this.state.zipCode}
-        setZipCode={this.setZipCode}
+        setZIPCode={this.setZIPCode}
       />
     );
   }
