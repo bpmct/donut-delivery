@@ -1,4 +1,5 @@
 import OrderSummary from "./OrderSummary";
+import AuthInfo from "../user/AuthInfo";
 
 class Checkout extends React.Component {
   state = {
@@ -167,6 +168,10 @@ class Checkout extends React.Component {
               <button className="btn btn-block btn-success">
                 🛒 Complete Purchase
               </button>
+              <AuthInfo
+                user={this.props.user}
+                accountFunctions={this.props.accountFunctions}
+              />
             </form>
           </div>
         </div>
