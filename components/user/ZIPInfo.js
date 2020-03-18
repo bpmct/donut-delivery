@@ -1,4 +1,4 @@
-class ZIPAlert extends React.Component {
+class ZIPInfo extends React.Component {
   constructor() {
     super();
     this.zipInput = React.createRef();
@@ -61,4 +61,4 @@ class ZIPAlert extends React.Component {
   }
 }
 
-export default ZIPAlert;
+export default ZIPInfo;

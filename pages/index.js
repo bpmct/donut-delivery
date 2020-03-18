@@ -4,7 +4,7 @@ import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
 import Checkout from "../components/order/Checkout";
-import ZIPAlert from "../components/ZIPAlert";
+import ZIPInfo from "../components/user/ZIPInfo";
 
 // local storage so that we can store the user's cart
 // TODO: look into if this is actually necessary
@@ -257,7 +257,7 @@ class Index extends React.Component {
           🍩🍩🍩 Donuts Straight to Your Home! 🍩🍩🍩
         </h1>
         <hr />
-        <ZIPAlert
+        <ZIPInfo
           zipCode={this.state.zipCode}
           setZipCode={this.setZipCode}
           resetZipCode={this.resetZipCode}
