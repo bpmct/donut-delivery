@@ -7,7 +7,6 @@ import Checkout from "../components/order/Checkout";
 import ZIPInfo from "../components/user/ZIPInfo";
 
 // local storage so that we can store the user's cart
-// TODO: look into if this is actually necessary
 import ls from "local-storage";
 
 import Builton from "@builton/core-sdk";
@@ -123,8 +122,6 @@ class Index extends React.Component {
       this.setState({ order });
     },
     placeOrder: () => {
-      console.log(this.state.order);
-
       this.setState({ step: "checkout" });
     }
   };
@@ -136,7 +133,6 @@ class Index extends React.Component {
   //This runs when a user logs in
   authHandler = async authData => {
     //This is Wes Bos' code from his course....
-    //TODO: figure out if i'm going to use firebase at all
     // //1. look up the current store in the firebase db
     // const store = await base.fetch(this.props.storeId, { conext: this });
     // //2. claim if if there is no owner
