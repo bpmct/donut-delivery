@@ -22,6 +22,8 @@ class Checkout extends React.Component {
 
     let builton = this.props.builton;
 
+    let orderFinished = this.props.orderFinished;
+
     let orderBody = {
       items: this.props.order,
       currency: "USD",
@@ -44,13 +46,9 @@ class Checkout extends React.Component {
         return;
       }
 
-      alert("order created: " + order.id);
-      console.log("order created: ", order);
+      //order success
+      orderFinished(order);
     });
-
-    console.log(this.props.builton);
-
-    console.log("Checkout called 😁");
   };
 
   render() {
@@ -76,6 +74,7 @@ class Checkout extends React.Component {
             </a>
             <hr />
             <form
+              // workaround for LastPass chrome extension
               className="form-horizontal"
               name="checkoutForm"
               onSubmit={this.onCheckout}
@@ -207,7 +206,7 @@ class Checkout extends React.Component {
                 required
               />{" "}
               <br />
-              <button className="btn btn-block btn-success">
+              <button type="submit" className="btn btn-block btn-success">
                 🛒 Complete Purchase
               </button>
               <AuthInfo
