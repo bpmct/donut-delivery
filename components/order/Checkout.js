@@ -6,12 +6,12 @@ class Checkout extends React.Component {
     address1: "",
     address2: "",
     city: "",
-    state: ""
+    state: "",
+    phone: ""
   };
 
   handleChange = e => {
     //very simple at this point, will require validation in the future
-
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -19,7 +19,36 @@ class Checkout extends React.Component {
 
   onCheckout = e => {
     e.preventDefault();
-    console.log("Checkout called 😁");
+
+    let builton = this.props.builton;
+
+    let orderFinished = this.props.orderFinished;
+
+    let orderBody = {
+      items: this.props.order,
+      currency: "USD",
+      delivery_address: {
+        //Allow Google's API to locate the exact address
+        service: "google",
+        street_name: this.state.address1,
+        phone_number: this.state.phone,
+        building: this.state.address2,
+        zip_code: this.props.zipCode,
+        city: this.state.city,
+        // Append the state to country for US and other regions
+        country: this.state.state + " United States"
+      }
+    };
+
+    builton.orders.create(orderBody, {}, function(err, order) {
+      if (err) {
+        // Handle error
+        return;
+      }
+
+      //order success
+      orderFinished(order);
+    });
   };
 
   render() {
@@ -45,6 +74,7 @@ class Checkout extends React.Component {
             </a>
             <hr />
             <form
+              // workaround for LastPass chrome extension
               className="form-horizontal"
               name="checkoutForm"
               onSubmit={this.onCheckout}
@@ -165,7 +195,18 @@ class Checkout extends React.Component {
                 </div>
               </div>
               <br />
-              <button className="btn btn-block btn-success">
+              <input
+                type="tel"
+                className="form-control"
+                name="phone"
+                autoComplete="shipping tel"
+                value={this.state.phone}
+                onChange={this.handleChange}
+                placeholder="Phone Number"
+                required
+              />{" "}
+              <br />
+              <button type="submit" className="btn btn-block btn-success">
                 🛒 Complete Purchase
               </button>
               <AuthInfo

@@ -4,6 +4,7 @@ import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
 import Checkout from "../components/order/Checkout";
+import OrderSummary from "../components/order/OrderSummary";
 import ZIPInfo from "../components/user/ZIPInfo";
 
 // local storage so that we can store the user's cart
@@ -21,6 +22,7 @@ class Index extends React.Component {
   state = {
     step: "order",
     zipCode: null,
+    pastOrders: [],
     products: [],
     order: [],
     user: {}
@@ -28,16 +30,20 @@ class Index extends React.Component {
 
   async componentDidMount() {
     let storedOrder = [];
+    let pastOrders = [];
     let currentStep = "order";
     let zipCode = null;
 
-    // check if the data is already set in local storage
+    // check if any data is already set in local storage
     if (ls.get("cart") || ls.get("currentStep")) {
       storedOrder = JSON.parse(ls.get("cart"));
       currentStep = JSON.parse(ls.get("currentStep"));
     }
     if (ls.get("zipCode")) {
       zipCode = JSON.parse(ls.get("zipCode"));
+    }
+    if (ls.get("pastOrders")) {
+      pastOrders = JSON.parse(ls.get("pastOrders"));
     }
 
     //Check if a user is logged in and call authHandler to update state
@@ -72,6 +78,7 @@ class Index extends React.Component {
       products: products.current,
       order: storedOrder,
       step: currentStep,
+      pastOrders,
       zipCode
     });
   }
@@ -79,6 +86,7 @@ class Index extends React.Component {
   componentDidUpdate() {
     ls.set("cart", JSON.stringify(this.state.order));
     ls.set("currentStep", JSON.stringify(this.state.step));
+    ls.set("pastOrders", JSON.stringify(this.state.pastOrders));
     ls.set("zipCode", JSON.stringify(this.state.zipCode));
   }
 
@@ -217,6 +225,15 @@ class Index extends React.Component {
     this.setState({ zipCode: null });
   };
 
+  orderFinished = order => {
+    // add the order to state & changes the screen
+
+    let pastOrders = this.state.pastOrders;
+
+    pastOrders.push(order);
+    this.setState({ step: "confirmation", pastOrders });
+  };
+
   accountFunctions = {
     authenticate: provider => {
       const authProvider = new firebase.auth[`${provider}AuthProvider`]();
@@ -245,6 +262,37 @@ class Index extends React.Component {
         );
     }
   };
+
+  confirmationScreen() {
+    return (
+      <div className="confirmationScreen">
+        <h1 className="text-center">Your order has been processed!</h1>
+        <hr />
+        <br />
+        <p className="text-center">
+          <strong>Options: </strong>
+          <button className="btn btn-success">📲 Get text alerts</button>{" "}
+          <button className="btn btn-danger">✖ Cancel order</button>
+        </p>
+        <p className="text-center">
+          Order number: <span className="badge badge-light">#4BACD</span>
+        </p>
+        <br />
+        <a
+          href="#"
+          onClick={e => {
+            e.preventDefault();
+            this.backToOrder();
+          }}
+        >
+          ⬅ Back home
+        </a>
+        <br />
+        <br />
+        <OrderSummary order={this.state.order} products={this.state.products} />
+      </div>
+    );
+  }
 
   orderScreen() {
     return (
@@ -295,7 +343,9 @@ class Index extends React.Component {
         editOrder={this.backToOrder}
         zipCode={this.state.zipCode}
         setZIPCode={this.setZIPCode}
+        orderFinished={this.orderFinished}
         user={this.state.user}
+        builton={builton}
         accountFunctions={this.accountFunctions}
       />
     );
@@ -304,6 +354,8 @@ class Index extends React.Component {
   render() {
     if (this.state.step == "order")
       return <DonutApp>{this.orderScreen()}</DonutApp>;
+    else if (this.state.step == "confirmation")
+      return <DonutApp>{this.confirmationScreen()}</DonutApp>;
     else return <DonutApp>{this.checkoutScreen()}</DonutApp>;
   }
 }
