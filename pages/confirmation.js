@@ -1,10 +1,6 @@
 import DonutApp from "../components/DonutApp";
 
-import Menu from "../components/menu/Menu";
-import Order from "../components/order/Order";
-import AuthInfo from "../components/user/AuthInfo";
 import OrderSummary from "../components/order/OrderSummary";
-import ZIPInfo from "../components/user/ZIPInfo";
 
 import Link from "next/link";
 

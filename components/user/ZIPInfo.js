@@ -4,12 +4,7 @@ class ZIPInfo extends React.Component {
     this.zipInput = React.createRef();
   }
 
-  resetZIPCode = e => {
-    e.preventDefault();
-    this.props.resetZIPCode();
-  };
-
-  setZIPCode = e => {
+  updateZIP = e => {
     e.preventDefault();
     if (this.zipInput.current.value) {
       let zipCode = this.zipInput.current.value;
@@ -21,7 +16,7 @@ class ZIPInfo extends React.Component {
     return (
       <span>
         Your ZIP Code is set to: <em>{this.props.zipCode}</em>.{" "}
-        <a href="#" onClick={this.resetZIPCode}>
+        <a href="#" onClick={() => this.props.setZIPCode("")}>
           Change
         </a>
       </span>
@@ -30,7 +25,7 @@ class ZIPInfo extends React.Component {
 
   zipUnset() {
     return (
-      <form className="form-inline" onSubmit={this.setZIPCode}>
+      <form className="form-inline" onSubmit={this.updateZIP}>
         Enter your ZIP code to get started:{"  "}
         <input
           style={{ marginLeft: 7 }}

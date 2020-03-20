@@ -131,16 +131,15 @@ class MyApp extends App {
       this.setState({ order });
     },
     placeOrder: () => {
-      this.setState({ step: "checkout" });
-      this.navigate("/checkout");
+      this.navigate("checkout");
     }
   };
 
   navigate = page => {
-    const { pathname } = Router;
-    // if (pathname == "/") {
-    Router.push(page);
-    // }
+    //update step in state
+    this.setState({ step: "checkout" });
+    //redirect
+    Router.push("/" + page);
   };
 
   //This runs when a user logs in
@@ -223,11 +222,8 @@ class MyApp extends App {
     });
   };
 
-  setZIPCode = zipCode => {
-    this.setState({ zipCode });
-  };
-  resetZIPCode = () => {
-    this.setState({ zipCode: null });
+  setZIPCode = theZIP => {
+    this.setState({ zipCode: theZIP });
   };
 
   orderFinished = order => {
@@ -236,8 +232,8 @@ class MyApp extends App {
     let pastOrders = this.state.pastOrders;
 
     pastOrders.push(order);
-    this.setState({ step: "confirmation", pastOrders });
-    this.navigate("/confirmation");
+    this.setState({ pastOrders });
+    this.navigate("confirmation");
   };
 
   accountFunctions = {
@@ -275,14 +271,16 @@ class MyApp extends App {
     return (
       <Component
         {...pageProps}
+        // these are props passed to all pages :)
+        // didn't see anywhere saying this was bad practice, so don't mind if I do!
         user={this.state.user}
+        // for now, it's nice to update ZIP data on all pages
         zipCode={this.state.zipCode}
         setZIPCode={this.setZIPCode}
-        resetZIPCode={this.resetZIPCode}
+        //list of all products
         products={this.state.products}
         order={this.state.order}
         orderFunctions={this.orderFunctions}
-        products={this.state.products}
         order={this.state.order}
         orderFinished={this.orderFinished}
         builton={builton}
