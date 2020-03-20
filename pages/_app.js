@@ -23,6 +23,7 @@ class MyApp extends App {
   };
 
   async componentDidMount() {
+    //initialize state vars that we are syncing to localStorage
     let storedOrder = [];
     let pastOrders = [];
     let currentStep = "order";
@@ -40,13 +41,13 @@ class MyApp extends App {
       pastOrders = JSON.parse(ls.get("pastOrders"));
     }
 
-    //Check if a user is logged in and call authHandler to update state
+    // when user data is avalible
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        //Handle the existing auth
+        // we have a user
         this.authHandler({ user });
       } else {
-        //Authenticate as a guest
+        // do user data yet, authenticate as a guest
         firebase
           .auth()
           .signInAnonymously()
@@ -57,7 +58,7 @@ class MyApp extends App {
       }
     });
 
-    // Set up BuiltOn without any user data yet...
+    // set up BuiltOn without any user data yet...
     builton = await new Builton({
       apiKey: process.env.BUILTON_APIKEY
     });
@@ -124,26 +125,26 @@ class MyApp extends App {
         apiKey: process.env.BUILTON_APIKEY,
         bearerToken: idToken
       });
-      const body = {
+      const firebaseUserData = {
         first_name: firstName,
         last_name: lastName,
         email: authData.user.email
       };
       builton.users
-        .authenticate(body)
+        .authenticate(firebaseUserData)
         .then(user => {
-          // Check if any user details have changed & update if necessary
+          // check for inconsistancy between Firebase's users data and BuiltOn's
           if (
-            body.first_name != user.first_name ||
-            body.last_name != user.last_name ||
-            body.email != user.email
+            firebaseUserData.first_name != user.first_name ||
+            firebaseUserData.last_name != user.last_name ||
+            firebaseUserData.email != user.email
           ) {
             builton.users
               .setMe()
               .update({
-                first_name: body.first_name,
-                last_name: body.last_name,
-                email: body.email
+                first_name: firebaseUserData.first_name,
+                last_name: firebaseUserData.last_name,
+                email: firebaseUserData.email
               })
               .then(user => {
                 // Sloppy code, but this ensures the latest version of the user is in state...
@@ -166,7 +167,6 @@ class MyApp extends App {
 
   placeOrder = order => {
     // add the order to state & changes the screen
-
     let pastOrders = this.state.pastOrders;
     pastOrders.push(order);
     this.setState({ pastOrders });
@@ -177,7 +177,7 @@ class MyApp extends App {
     authenticate: provider => {
       const authProvider = new firebase.auth[`${provider}AuthProvider`]();
 
-      //Ensure that we ask for a specific account every time
+      //ensure that we ask for a specific account every time
       authProvider.setCustomParameters({
         prompt: "select_account"
       });
@@ -192,7 +192,8 @@ class MyApp extends App {
         .signOut()
         .then(
           function() {
-            // Sign-out successful.
+            // sign-out successful.
+            // state updates automatically due to AuthHandler
           },
           function(error) {
             // An error happened.
