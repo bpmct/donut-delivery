@@ -2,6 +2,7 @@ import DonutApp from "../components/DonutApp";
 
 import OrderSummary from "../components/order/OrderSummary";
 import AuthInfo from "../components/user/AuthInfo";
+import Link from "next/link";
 
 class Checkout extends React.Component {
   state = {
@@ -65,15 +66,9 @@ class Checkout extends React.Component {
             />
           </div>
           <div className="col-md-4">
-            <a
-              href="#"
-              onClick={e => {
-                e.preventDefault();
-                this.props.editOrder();
-              }}
-            >
-              ⬅ Change your order
-            </a>
+            <Link href="/">
+              <a title="Back to order">⬅ Change your order</a>
+            </Link>
             <hr />
             <form
               // workaround for LastPass chrome extension

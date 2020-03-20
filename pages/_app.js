@@ -1,5 +1,6 @@
 import Link from "next/link";
 import App from "next/app";
+import Router from "next/router";
 
 import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
@@ -131,11 +132,15 @@ class MyApp extends App {
     },
     placeOrder: () => {
       this.setState({ step: "checkout" });
+      this.navigate("/checkout");
     }
   };
 
-  backToOrder = () => {
-    this.setState({ step: "order" });
+  navigate = page => {
+    const { pathname } = Router;
+    // if (pathname == "/") {
+    Router.push(page);
+    // }
   };
 
   //This runs when a user logs in
@@ -147,7 +152,7 @@ class MyApp extends App {
     // if (!store.owner) {
     //   //save it as our own
     //   await base.post(`${this.props.storeId}/owner`, {
-    //     data: authData.user.uid
+    //     data: authData.user.uidorderFinished
     //   });
     // }
     // //3. set the state of the inventory component to reflect the current user
@@ -232,6 +237,7 @@ class MyApp extends App {
 
     pastOrders.push(order);
     this.setState({ step: "confirmation", pastOrders });
+    this.navigate("/confirmation");
   };
 
   accountFunctions = {
@@ -279,8 +285,8 @@ class MyApp extends App {
         products={this.state.products}
         order={this.state.order}
         orderFinished={this.orderFinished}
-        backToOrder={this.backToOrder}
         builton={builton}
+        navigate={this.navigate}
         accountFunctions={this.accountFunctions}
       />
     );

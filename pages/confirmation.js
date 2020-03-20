@@ -3,7 +3,6 @@ import DonutApp from "../components/DonutApp";
 import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
-import Checkout from "../components/order/Checkout";
 import OrderSummary from "../components/order/OrderSummary";
 import ZIPInfo from "../components/user/ZIPInfo";
 
@@ -25,15 +24,9 @@ export default function Confirmation_Page(props) {
           Order number: <span className="badge badge-light">#4BACD</span>
         </p>
         <br />
-        <a
-          href="#"
-          onClick={e => {
-            e.preventDefault();
-            this.backToOrder();
-          }}
-        >
-          ⬅ Back home
-        </a>
+        <Link href="/">
+          <a title="Back home">⬅ Back home</a>
+        </Link>
         <br />
         <br />
         <OrderSummary order={props.order} products={props.products} />
