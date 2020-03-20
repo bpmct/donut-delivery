@@ -1,5 +1,8 @@
-import OrderSummary from "./OrderSummary";
-import AuthInfo from "../user/AuthInfo";
+import DonutApp from "../components/DonutApp";
+
+import OrderSummary from "../components/order/OrderSummary";
+import AuthInfo from "../components/user/AuthInfo";
+import Link from "next/link";
 
 class Checkout extends React.Component {
   state = {
@@ -22,7 +25,7 @@ class Checkout extends React.Component {
 
     let builton = this.props.builton;
 
-    let orderFinished = this.props.orderFinished;
+    let placeOrder = this.props.placeOrder;
 
     let orderBody = {
       items: this.props.order,
@@ -47,13 +50,13 @@ class Checkout extends React.Component {
       }
 
       //order success
-      orderFinished(order);
+      placeOrder(order);
     });
   };
 
   render() {
     return (
-      <div>
+      <DonutApp>
         <h1>💳 Checkout</h1>
         <div className="row">
           <div className="col-md-8">
@@ -63,15 +66,9 @@ class Checkout extends React.Component {
             />
           </div>
           <div className="col-md-4">
-            <a
-              href="#"
-              onClick={e => {
-                e.preventDefault();
-                this.props.editOrder();
-              }}
-            >
-              ⬅ Change your order
-            </a>
+            <Link href="/">
+              <a title="Back to order">⬅ Change your order</a>
+            </Link>
             <hr />
             <form
               // workaround for LastPass chrome extension
@@ -211,13 +208,13 @@ class Checkout extends React.Component {
               </button>
               <AuthInfo
                 user={this.props.user}
-                accountFunctions={this.props.accountFunctions}
+                userFunctions={this.props.userFunctions}
               />
             </form>
           </div>
         </div>
         <br />
-      </div>
+      </DonutApp>
     );
   }
 }

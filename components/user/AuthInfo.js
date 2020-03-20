@@ -8,7 +8,7 @@ class AuthInfo extends React.Component {
           <p className="text-center">
             <button
               className="btn btn-primary btn-sm"
-              onClick={() => this.props.accountFunctions.authenticate("Google")}
+              onClick={() => this.props.userFunctions.authenticate("Google")}
             >
               <i className="fa fa-google"></i> Log in with Google
             </button>
@@ -26,7 +26,7 @@ class AuthInfo extends React.Component {
               href="#"
               onClick={e => {
                 e.preventDefault();
-                this.props.accountFunctions.logOut();
+                this.props.userFunctions.logOut();
               }}
             >
               Log out

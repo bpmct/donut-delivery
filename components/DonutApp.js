@@ -3,6 +3,7 @@ import Head from "next/head";
 
 //Page elements
 import Header from "./page/Header";
+import Footer from "./page/Footer";
 
 const HeadTags = props => (
   <Head>
@@ -44,6 +45,7 @@ class DonutApp extends React.Component {
         <div className="container">
           <div className="jumbotron">{this.props.children}</div>
         </div>
+        <Footer title={siteName} />
       </React.Fragment>
     );
   }
