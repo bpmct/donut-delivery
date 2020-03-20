@@ -1,12 +1,5 @@
-import Link from "next/link";
 import App from "next/app";
 import Router from "next/router";
-
-import Menu from "../components/menu/Menu";
-import Order from "../components/order/Order";
-import AuthInfo from "../components/user/AuthInfo";
-import OrderSummary from "../components/order/OrderSummary";
-import ZIPInfo from "../components/user/ZIPInfo";
 
 // local storage so that we can store the user's cart
 import ls from "local-storage";
@@ -91,48 +84,9 @@ class MyApp extends App {
     ls.set("zipCode", JSON.stringify(this.state.zipCode));
   }
 
-  orderFunctions = {
-    addToOrder: productID => {
-      let order = this.state.order;
-
-      //Check if there is already one of this product in the order.
-      let existingOrderIndex = order.findIndex(orderItem => {
-        return orderItem.product == productID;
-      });
-
-      //If there is an index with this order
-      if (existingOrderIndex !== -1) {
-        order[existingOrderIndex].quantity++;
-      } else {
-        order.push({
-          product: productID,
-          quantity: 1
-        });
-      }
-
-      this.setState({ order });
-    },
-    removeFromOrder: productID => {
-      let order = this.state.order;
-
-      //Check if there is already one of this product in the order.
-      let existingOrderIndex = order.findIndex(orderItem => {
-        return orderItem.product == productID;
-      });
-
-      //If there is an index with this order
-      if (order[existingOrderIndex].quantity > 1) {
-        order[existingOrderIndex].quantity--;
-      } else {
-        order.splice(existingOrderIndex, 1);
-      }
-
-      //Update the state object
-      this.setState({ order });
-    },
-    placeOrder: () => {
-      this.navigate("checkout");
-    }
+  updateOrder = order => {
+    //Update the state object
+    this.setState({ order });
   };
 
   navigate = page => {
@@ -144,22 +98,6 @@ class MyApp extends App {
 
   //This runs when a user logs in
   authHandler = async authData => {
-    //This is Wes Bos' code from his course....
-    // //1. look up the current store in the firebase db
-    // const store = await base.fetch(this.props.storeId, { conext: this });
-    // //2. claim if if there is no owner
-    // if (!store.owner) {
-    //   //save it as our own
-    //   await base.post(`${this.props.storeId}/owner`, {
-    //     data: authData.user.uidorderFinished
-    //   });
-    // }
-    // //3. set the state of the inventory component to reflect the current user
-    // this.setState({
-    //   uid: authData.user.uid,
-    //   owner: store.owner || authData.user.uid
-    // });
-
     let firstName = "",
       lastName = "";
 
@@ -208,7 +146,7 @@ class MyApp extends App {
                 email: body.email
               })
               .then(user => {
-                //Sloppy code, but this ensures the latest version of the user is in state...
+                // Sloppy code, but this ensures the latest version of the user is in state...
                 this.setState({ user });
               });
           }
@@ -226,17 +164,16 @@ class MyApp extends App {
     this.setState({ zipCode: theZIP });
   };
 
-  orderFinished = order => {
+  placeOrder = order => {
     // add the order to state & changes the screen
 
     let pastOrders = this.state.pastOrders;
-
     pastOrders.push(order);
     this.setState({ pastOrders });
     this.navigate("confirmation");
   };
 
-  accountFunctions = {
+  userFunctions = {
     authenticate: provider => {
       const authProvider = new firebase.auth[`${provider}AuthProvider`]();
 
@@ -274,18 +211,20 @@ class MyApp extends App {
         // these are props passed to all pages :)
         // didn't see anywhere saying this was bad practice, so don't mind if I do!
         user={this.state.user}
+        userFunctions={this.userFunctions}
         // for now, it's nice to update ZIP data on all pages
         zipCode={this.state.zipCode}
         setZIPCode={this.setZIPCode}
-        //list of all products
+        // list of all products
         products={this.state.products}
+        // order info & a simple function to update order
         order={this.state.order}
-        orderFunctions={this.orderFunctions}
-        order={this.state.order}
-        orderFinished={this.orderFinished}
+        updateOrder={this.updateOrder}
+        placeOrder={this.placeOrder}
+        // our BuiltOn object for custom operations
         builton={builton}
+        // navigation to go to new pages and update step in state
         navigate={this.navigate}
-        accountFunctions={this.accountFunctions}
       />
     );
   }

@@ -8,6 +8,51 @@ import ZIPInfo from "../components/user/ZIPInfo";
 import Link from "next/link";
 
 class Order_Page extends React.Component {
+  orderFunctions = {
+    addToOrder: productID => {
+      let order = this.props.order;
+
+      //Check if there is already one of this product in the order.
+      let existingOrderIndex = order.findIndex(orderItem => {
+        return orderItem.product == productID;
+      });
+
+      //If there is an index with this order
+      if (existingOrderIndex !== -1) {
+        order[existingOrderIndex].quantity++;
+      } else {
+        order.push({
+          product: productID,
+          quantity: 1
+        });
+      }
+
+      //Update the order with the new object
+      this.props.updateOrder(order);
+    },
+    removeFromOrder: productID => {
+      let order = this.props.order;
+
+      //Check if there is already one of this product in the order.
+      let existingOrderIndex = order.findIndex(orderItem => {
+        return orderItem.product == productID;
+      });
+
+      //If there is an index with this order
+      if (order[existingOrderIndex].quantity > 1) {
+        order[existingOrderIndex].quantity--;
+      } else {
+        order.splice(existingOrderIndex, 1);
+      }
+
+      //Update the order with the new object
+      this.props.updateOrder(order);
+    },
+    placeOrder: () => {
+      this.props.navigate("checkout");
+    }
+  };
+
   render() {
     return (
       <DonutApp>
@@ -26,7 +71,7 @@ class Order_Page extends React.Component {
               <Menu
                 products={this.props.products}
                 order={this.props.order}
-                orderFunctions={this.props.orderFunctions}
+                orderFunctions={this.orderFunctions}
               />
             </div>
 
@@ -34,11 +79,11 @@ class Order_Page extends React.Component {
               <Order
                 products={this.props.products}
                 order={this.props.order}
-                orderFunctions={this.props.orderFunctions}
+                orderFunctions={this.orderFunctions}
               />
               <AuthInfo
                 user={this.props.user}
-                accountFunctions={this.props.accountFunctions}
+                userFunctions={this.props.userFunctions}
               />
             </div>
           </div>

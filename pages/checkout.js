@@ -25,7 +25,7 @@ class Checkout extends React.Component {
 
     let builton = this.props.builton;
 
-    let orderFinished = this.props.orderFinished;
+    let placeOrder = this.props.placeOrder;
 
     let orderBody = {
       items: this.props.order,
@@ -50,7 +50,7 @@ class Checkout extends React.Component {
       }
 
       //order success
-      orderFinished(order);
+      placeOrder(order);
     });
   };
 
@@ -208,7 +208,7 @@ class Checkout extends React.Component {
               </button>
               <AuthInfo
                 user={this.props.user}
-                accountFunctions={this.props.accountFunctions}
+                userFunctions={this.props.userFunctions}
               />
             </form>
           </div>
