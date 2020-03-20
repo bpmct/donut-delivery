@@ -1,9 +1,13 @@
+import Link from "next/link";
+
 function Header(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        {props.title}
-      </a>
+      <Link href="/">
+        <a className="navbar-brand" title={props.title}>
+          {props.title}
+        </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -16,7 +20,7 @@ function Header(props) {
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
             <a className="nav-link" href="#">
@@ -73,7 +77,7 @@ function Header(props) {
             Search
           </button>
         </form>
-      </div>
+      </div> */}
     </nav>
   );
 }

@@ -14,8 +14,18 @@ export default function Confirmation_Page(props) {
           <br />
           <p className="text-center">
             <strong>Options: </strong>
-            <button className="btn btn-success">📲 Get text alerts</button>{" "}
-            <button className="btn btn-danger">✖ Cancel order</button>
+            <button
+              className="btn btn-success"
+              onClick={() => alert("Coming soon")}
+            >
+              📲 Get text alerts
+            </button>{" "}
+            <button
+              className="btn btn-danger"
+              onClick={() => alert("Coming soon")}
+            >
+              ✖ Cancel order
+            </button>
           </p>
           <p className="text-center">
             Order ID:{" "}

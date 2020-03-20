@@ -5,8 +5,6 @@ import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
 import ZIPInfo from "../components/user/ZIPInfo";
 
-import Link from "next/link";
-
 class Order_Page extends React.Component {
   orderFunctions = {
     addToOrder: productID => {
@@ -87,9 +85,6 @@ class Order_Page extends React.Component {
               />
             </div>
           </div>
-          <Link href="about">
-            <a title="About">About us link</a>
-          </Link>
         </div>
       </DonutApp>
     );
