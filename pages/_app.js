@@ -16,7 +16,7 @@ class MyApp extends App {
   state = {
     step: "order",
     zipCode: "",
-    pastOrders: [],
+    pastOrders: {},
     products: [],
     order: [],
     user: {}
@@ -25,7 +25,7 @@ class MyApp extends App {
   async componentDidMount() {
     //initialize state vars that we are syncing to localStorage
     let storedOrder = [];
-    let pastOrders = [];
+    let pastOrders = {};
     let currentStep = "order";
     let zipCode = "";
 
@@ -168,9 +168,9 @@ class MyApp extends App {
   placeOrder = order => {
     // add the order to state & changes the screen
     let pastOrders = this.state.pastOrders;
-    pastOrders.push(order);
+    pastOrders[order.human_id] = order;
     this.setState({ pastOrders });
-    this.navigate("confirmation");
+    this.navigate("confirmation/" + order.human_id);
   };
 
   userFunctions = {
@@ -224,6 +224,8 @@ class MyApp extends App {
         placeOrder={this.placeOrder}
         // our BuiltOn object for custom operations
         builton={builton}
+        //order history
+        pastOrders={this.state.pastOrders}
         // navigation to go to new pages and update step in state
         navigate={this.navigate}
       />
