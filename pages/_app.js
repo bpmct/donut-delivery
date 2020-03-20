@@ -4,7 +4,6 @@ import App from "next/app";
 import Menu from "../components/menu/Menu";
 import Order from "../components/order/Order";
 import AuthInfo from "../components/user/AuthInfo";
-import Checkout from "../components/order/Checkout";
 import OrderSummary from "../components/order/OrderSummary";
 import ZIPInfo from "../components/user/ZIPInfo";
 
