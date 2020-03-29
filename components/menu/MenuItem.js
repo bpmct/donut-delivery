@@ -2,14 +2,16 @@ class MenuItem extends React.Component {
   render() {
     const product = this.props.product;
 
+    let image = "";
+
+    //Use demo picture if there is no image URL
+    if (!product.image) image = "/img/product_default.png";
+    else image = product.image.public_url;
+
     return (
       <div className="col-6 menu-item">
         <div className="card">
-          <img
-            src={product.image.public_url}
-            className="card-img-top"
-            alt="..."
-          />
+          <img src={image} className="card-img-top" alt="..." />
           <div className="card-body">
             <h5 className="card-title">{product.name}</h5>
             <p>
