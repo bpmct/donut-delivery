@@ -2,6 +2,7 @@ class OrderSummary extends React.Component {
   render() {
     let totalPrice = 0;
     let currency = "";
+
     return (
       <table className="table table-hover">
         <thead>
@@ -27,16 +28,17 @@ class OrderSummary extends React.Component {
             //Round to two decimal places
             let itemsPrice = +(thisProduct.price * thisQuantity).toFixed(2);
 
+            //Use demo picture if there is no image URL
+            let image = "";
+            if (!thisProduct.image) image = "/img/product_default.png";
+            else image = thisProduct.image.public_url;
+
             //Add item to total price
             totalPrice += itemsPrice;
             return (
               <tr key={thisProduct.id}>
                 <td>
-                  <img
-                    src={thisProduct.image.public_url}
-                    width="150"
-                    alt={thisProduct.name}
-                  />
+                  <img src={image} width="150" alt={thisProduct.name} />
                 </td>
                 <td>{thisProduct.name}</td>
                 <td>{thisProduct.price + " " + currency}</td>
