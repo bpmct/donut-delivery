@@ -28,6 +28,7 @@ const HeadTags = props => (
     />
 
     {/* Custom Styles */}
+    <link rel="stylesheet" href="/css/nprogress.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <title>
       {props.title} | {props.page}
