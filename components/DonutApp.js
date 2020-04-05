@@ -5,7 +5,7 @@ import Head from "next/head";
 import Header from "./page/Header";
 import Footer from "./page/Footer";
 
-const HeadTags = props => (
+const HeadTags = (props) => (
   <Head>
     <meta charSet="utf-8" />
     <meta
@@ -30,23 +30,20 @@ const HeadTags = props => (
     {/* Custom Styles */}
     <link rel="stylesheet" href="/css/nprogress.css" />
     <link rel="stylesheet" href="/css/style.css" />
-    <title>
-      {props.title} | {props.page}
-    </title>
+    <title>{process.env.SHOP_NAME} | Delivery</title>
   </Head>
 );
 
 class DonutApp extends React.Component {
   render() {
-    const siteName = "🍩 Donut Shop Delivery";
     return (
       <React.Fragment>
-        <HeadTags title={siteName} page="Home" />
-        <Header title={siteName} />
+        <HeadTags />
+        <Header />
         <div className="container">
           <div className="jumbotron">{this.props.children}</div>
         </div>
-        <Footer title={siteName} />
+        <Footer />
       </React.Fragment>
     );
   }
