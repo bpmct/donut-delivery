@@ -4,7 +4,7 @@ class ZIPInfo extends React.Component {
     this.zipInput = React.createRef();
   }
 
-  updateZIP = e => {
+  updateZIP = (e) => {
     e.preventDefault();
     if (this.zipInput.current.value) {
       let zipCode = this.zipInput.current.value;
@@ -32,6 +32,7 @@ class ZIPInfo extends React.Component {
           type="number"
           name="zip"
           ref={this.zipInput}
+          autoFocus
           className="form-control form-control-sm"
         ></input>
         <button
