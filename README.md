@@ -10,6 +10,8 @@ A React (Next.js) donut delivery app. This app uses [BuiltOn](https://builton.de
 - Orders
 - Payments (↔️ with Stripe)
 
+This works with my [delivery-manager](https://github.com/bpmct/delivery-manager) application that allows employees/admins to view orders, change order status, refund, et.
+
 ## Installation
 
 Long installs stuck. Especially if you just want to start playing around. We're planning on making a [simple script](https://github.com/bpmct/donut-delivery/issues/5) that makes it easy to start coding 😊
