@@ -13,7 +13,7 @@ import "firebase/auth";
 import base, { firebaseApp } from "../components/Base";
 import NProgress from "nprogress";
 
-Router.events.on("routeChangeStart", url => {
+Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
   NProgress.start();
 });
@@ -27,7 +27,7 @@ class MyApp extends App {
     pastOrders: {},
     products: [],
     order: [],
-    user: {}
+    user: {},
   };
 
   async componentDidMount() {
@@ -50,7 +50,7 @@ class MyApp extends App {
     }
 
     // when user data is avalible
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // we have a user
         this.authHandler({ user });
@@ -59,7 +59,7 @@ class MyApp extends App {
         firebase
           .auth()
           .signInAnonymously()
-          .catch(function(error) {
+          .catch(function (error) {
             // Handle Errors here.
             console.log(error);
           });
@@ -68,13 +68,13 @@ class MyApp extends App {
 
     // set up BuiltOn without any user data yet...
     builton = await new Builton({
-      apiKey: process.env.BUILTON_APIKEY
+      apiKey: process.env.BUILTON_APIKEY,
     });
 
     const products = await builton.products.get({
       size: 10,
       page: 0,
-      urlParams: { expand: "image" }
+      urlParams: { expand: "image" },
     });
 
     this.setState({
@@ -82,7 +82,7 @@ class MyApp extends App {
       order: storedOrder,
       step: currentStep,
       pastOrders,
-      zipCode
+      zipCode,
     });
   }
 
@@ -93,12 +93,12 @@ class MyApp extends App {
     ls.set("zipCode", JSON.stringify(this.state.zipCode));
   }
 
-  updateOrder = order => {
+  updateOrder = (order) => {
     //Update the state object
     this.setState({ order });
   };
 
-  navigate = page => {
+  navigate = (page) => {
     //update step in state
     this.setState({ step: "checkout" });
     //redirect
@@ -106,7 +106,7 @@ class MyApp extends App {
   };
 
   //This runs when a user logs in
-  authHandler = async authData => {
+  authHandler = async (authData) => {
     let firstName = "",
       lastName = "";
 
@@ -127,20 +127,20 @@ class MyApp extends App {
       }
     }
 
-    authData.user.getIdToken().then(async idToken => {
+    authData.user.getIdToken().then(async (idToken) => {
       //Re-initialize BuiltOn with the user data
       builton = await new Builton({
         apiKey: process.env.BUILTON_APIKEY,
-        bearerToken: idToken
+        bearerToken: idToken,
       });
       const firebaseUserData = {
         first_name: firstName,
         last_name: lastName,
-        email: authData.user.email
+        email: authData.user.email,
       };
       builton.users
         .authenticate(firebaseUserData)
-        .then(user => {
+        .then((user) => {
           // check for inconsistancy between Firebase's users data and BuiltOn's
           if (
             firebaseUserData.first_name != user.first_name ||
@@ -152,9 +152,9 @@ class MyApp extends App {
               .update({
                 first_name: firebaseUserData.first_name,
                 last_name: firebaseUserData.last_name,
-                email: firebaseUserData.email
+                email: firebaseUserData.email,
               })
-              .then(user => {
+              .then((user) => {
                 // Sloppy code, but this ensures the latest version of the user is in state...
                 this.setState({ user });
               });
@@ -163,52 +163,49 @@ class MyApp extends App {
           // Add the user to our state
           this.setState({ user });
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err.response.body);
         });
     });
   };
 
-  setZIPCode = theZIP => {
+  setZIPCode = (theZIP) => {
     this.setState({ zipCode: theZIP });
   };
 
-  placeOrder = order => {
+  placeOrder = (order) => {
     // add the order to state & changes the screen
     let pastOrders = this.state.pastOrders;
     pastOrders[order.human_id] = order;
     this.setState({ pastOrders });
-    this.navigate("confirmation/" + order.human_id);
+    this.navigate("confirmation?id=" + order.human_id);
   };
 
   userFunctions = {
-    authenticate: provider => {
+    authenticate: (provider) => {
       const authProvider = new firebase.auth[`${provider}AuthProvider`]();
 
       //ensure that we ask for a specific account every time
       authProvider.setCustomParameters({
-        prompt: "select_account"
+        prompt: "select_account",
       });
-      firebaseApp
-        .auth()
-        .signInWithPopup(authProvider)
-        .then(this.authHandler);
+      firebaseApp.auth().signInWithPopup(authProvider).then(this.authHandler);
     },
     logOut: () => {
       firebaseApp
         .auth()
         .signOut()
         .then(
-          function() {
+          function () {
             // sign-out successful.
             // state updates automatically due to AuthHandler
           },
-          function(error) {
+          function (error) {
             // An error happened.
             console.log(error);
           }
         );
-    }
+    },
   };
 
   render() {
