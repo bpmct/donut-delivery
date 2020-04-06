@@ -7,11 +7,11 @@ import ZIPInfo from "../components/user/ZIPInfo";
 
 class Order_Page extends React.Component {
   orderFunctions = {
-    addToOrder: productID => {
+    addToOrder: (productID) => {
       let order = this.props.order;
 
       //Check if there is already one of this product in the order.
-      let existingOrderIndex = order.findIndex(orderItem => {
+      let existingOrderIndex = order.findIndex((orderItem) => {
         return orderItem.product == productID;
       });
 
@@ -21,18 +21,18 @@ class Order_Page extends React.Component {
       } else {
         order.push({
           product: productID,
-          quantity: 1
+          quantity: 1,
         });
       }
 
       //Update the order with the new object
       this.props.updateOrder(order);
     },
-    removeFromOrder: productID => {
+    removeFromOrder: (productID) => {
       let order = this.props.order;
 
       //Check if there is already one of this product in the order.
-      let existingOrderIndex = order.findIndex(orderItem => {
+      let existingOrderIndex = order.findIndex((orderItem) => {
         return orderItem.product == productID;
       });
 
@@ -48,7 +48,7 @@ class Order_Page extends React.Component {
     },
     placeOrder: () => {
       this.props.navigate("checkout");
-    }
+    },
   };
 
   render() {
@@ -56,12 +56,13 @@ class Order_Page extends React.Component {
       <DonutApp>
         <div className="orderScreen">
           <h1 className="text-center">
-            🍩🍩🍩 Donuts Straight to Your Home! 🍩🍩🍩
+            {process.env.SHOP_NAME}: Order for delivery
           </h1>
           <hr />
           <ZIPInfo
             zipCode={this.props.zipCode}
             setZIPCode={this.props.setZIPCode}
+            clearZIPCode={this.props.clearZIPCode}
           />
           <br />
           <div className="row">

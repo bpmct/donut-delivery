@@ -4,7 +4,10 @@
       "BUILTON_APIKEY": "@builton_apikey",
       "FIREBASE_APIKEY": "@firebase_apikey",
       "FIREBASE_AUTH_DOMAIN": "@firebase_auth_domain",
-      "FIREBASE_DATABASE_URL": "@firebase_database_url"
+      "FIREBASE_DATABASE_URL": "@firebase_database_url",
+      "SHOP_NAME": "@shop_name",
+      "SHOP_LANDING_PAGE": "@shop_landing_page",
+      "ZIP_CODES_JSON": "@zip_code_json"
     }
   }
 }

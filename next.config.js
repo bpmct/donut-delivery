@@ -7,5 +7,6 @@ module.exports = {
     FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
     SHOP_NAME: process.env.SHOP_NAME,
     SHOP_LANDING_PAGE: process.env.SHOP_LANDING_PAGE,
+    ZIP_CODES_JSON: process.env.ZIP_CODES_JSON,
   },
 };
