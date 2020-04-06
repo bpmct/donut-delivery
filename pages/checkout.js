@@ -10,49 +10,94 @@ class Checkout extends React.Component {
     address2: "",
     city: "",
     state: "",
-    phone: ""
+    tempZIP: this.props.zipCode,
+    phone: "",
+    errors: [],
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     //very simple at this point, will require validation in the future
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  onCheckout = e => {
+  dismissError = (theError) => {
+    let errors = this.state.errors;
+
+    errors = errors.filter((error) => {
+      if (error == theError) {
+        return false;
+      } else return true;
+    });
+
+    this.setState({ errors });
+  };
+
+  onCheckout = (e) => {
     e.preventDefault();
 
-    let builton = this.props.builton;
+    this.props.setZIPCode(this.state.tempZIP).then((setZIP_success) => {
+      //ensure we have the right ZIP code
+      if (setZIP_success) {
+        let builton = this.props.builton;
+        let placeOrder = this.props.placeOrder;
+        let orderBody = {
+          items: this.props.order,
+          currency: "USD",
+          delivery_address: {
+            //Allow Google's API to locate the exact address
+            service: "google",
+            street_name: this.state.address1,
+            phone_number: this.state.phone,
+            building: this.state.address2,
+            zip_code: this.props.zipCode,
+            city: this.state.city,
+            // Append the state to country for US and other regions
+            country: this.state.state + " United States",
+          },
+        };
+        builton.orders.create(orderBody, {}, function (err, order) {
+          if (err) {
+            console.log("A BUILTON ERROR OCCURED:", err);
+            // Handle error
+            return;
+          }
+          //order success
+          placeOrder(order);
+        });
+      } else {
+        let errors = this.state.errors;
 
-    let placeOrder = this.props.placeOrder;
+        errors.push("zipCode");
 
-    let orderBody = {
-      items: this.props.order,
-      currency: "USD",
-      delivery_address: {
-        //Allow Google's API to locate the exact address
-        service: "google",
-        street_name: this.state.address1,
-        phone_number: this.state.phone,
-        building: this.state.address2,
-        zip_code: this.props.zipCode,
-        city: this.state.city,
-        // Append the state to country for US and other regions
-        country: this.state.state + " United States"
+        this.setState({ errors });
       }
-    };
-
-    builton.orders.create(orderBody, {}, function(err, order) {
-      if (err) {
-        // Handle error
-        return;
-      }
-
-      //order success
-      placeOrder(order);
     });
   };
+
+  render_possible_errors() {
+    for (let error of this.state.errors) {
+      if (error == "zipCode") {
+        /* try check if the latest value in the input is a valid zip code
+        if it is valid, it will dismiss the error */
+        this.props.setZIPCode(this.state.tempZIP).then((setZIP_success) => {
+          if (setZIP_success) {
+            this.dismissError("zipCode");
+          }
+        });
+        return (
+          <p className="text-danger text-center">
+            We do not deliver to that ZIP code.
+            <br />
+            <Link href="/delivery_zones">
+              <a title="Our Delivery Regions">Our Delivery Regions</a>
+            </Link>
+          </p>
+        );
+      }
+    }
+  }
 
   render() {
     return (
@@ -180,12 +225,10 @@ class Checkout extends React.Component {
                   <input
                     type="number"
                     className="form-control"
-                    value={this.props.zipCode}
+                    value={this.state.tempZIP}
                     autoComplete="shipping postal-code"
-                    onChange={e => {
-                      this.props.setZIPCode(e.target.value);
-                    }}
-                    name="city"
+                    onChange={this.handleChange}
+                    name="tempZIP"
                     placeholder="ZIP"
                     required
                   />
@@ -203,7 +246,12 @@ class Checkout extends React.Component {
                 required
               />{" "}
               <br />
-              <button type="submit" className="btn btn-block btn-success">
+              {this.render_possible_errors()}
+              <button
+                type="submit"
+                className="btn btn-block btn-success"
+                disabled={this.state.errors.length}
+              >
                 🛒 Complete Purchase
               </button>
               <AuthInfo

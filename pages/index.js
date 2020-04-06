@@ -62,6 +62,7 @@ class Order_Page extends React.Component {
           <ZIPInfo
             zipCode={this.props.zipCode}
             setZIPCode={this.props.setZIPCode}
+            clearZIPCode={this.props.clearZIPCode}
           />
           <br />
           <div className="row">

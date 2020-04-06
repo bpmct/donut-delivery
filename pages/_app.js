@@ -11,14 +11,18 @@ let builton, builton_auth;
 import firebase from "firebase/app";
 import "firebase/auth";
 import base, { firebaseApp } from "../components/Base";
-import NProgress from "nprogress";
 
+//loading bar
+import NProgress from "nprogress";
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
   NProgress.start();
 });
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
+
+//for http requests (specifically for zip code)
+import axios from "axios";
 
 class MyApp extends App {
   state = {
@@ -169,8 +173,33 @@ class MyApp extends App {
     });
   };
 
-  setZIPCode = (theZIP) => {
-    this.setState({ zipCode: theZIP });
+  clearZIPCode = () => {
+    console.log("wassup");
+    this.setState({ zipCode: "" });
+  };
+
+  setZIPCode = async (theZIP) => {
+    //Ensure the ZIP code is inside the delivery radius
+    return await axios
+      .get(process.env.ZIP_CODES_JSON)
+      .then((response) => {
+        // handle success
+        let zips_array = Array.from(
+          response.data.zip_codes,
+          (zip) => zip.zip_code
+        );
+
+        //return true or false depending if the zip is in the list
+        if (zips_array.includes(theZIP)) {
+          //set state :)
+          this.setState({ zipCode: theZIP });
+          return true;
+        } else return false;
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
   };
 
   placeOrder = (order) => {
@@ -220,6 +249,7 @@ class MyApp extends App {
         userFunctions={this.userFunctions}
         // for now, it's nice to update ZIP data on all pages
         zipCode={this.state.zipCode}
+        clearZIPCode={this.clearZIPCode}
         setZIPCode={this.setZIPCode}
         // list of all products
         products={this.state.products}

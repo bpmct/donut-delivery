@@ -24,13 +24,17 @@ For now though, here's what you have to do:
 - Clone this repo and `npm install`
 - Configure the app's enviromnent variables with your API keys:
 
-  - If you want to deploy to ZEIT/Now:
+  - If you want to deploy (or develop with) to ZEIT/Now:
     - For local development, add a `.env.build` file (use `.env.build.sample` as reference)
     - Add [now secrets](https://zeit.co/docs/v2/build-step#adding-secrets) based off the @ definitions in `now.json`
     - Begin developing with `now dev` (or `npx now dev` if you don't have now installed globally)
   - If you just want to build locally (or deploy elseware):
     - Add your API keys `next.config.js` instead of the `process.env` definitions
     - Start developing with `npm run dev`
+  - Configuring the ZIP Codes that quality for delivery is a bit tricky:
+    - Use [this tool](https://www.zipcodeapi.com/API#radius) by zipcodeapi.com to generate a JSON list of cities and zip codes with delivery
+    - Upload the JSON file to your project directory (`public/zip-codes.json` is .gitignored) or use a service like [JSONbin](https://jsonbin.io/) to host it. Make sure it is set to "🔓 Public" [(example)](https://api.jsonbin.io/b/5e8aa04c0cb49e48ce234e42)
+    - Set the proper URL of the file with the `ZIP_CODES_JSON` environment variable
 
 - Add some products in the [BuiltOn Dashboard](https://dashboard.builton.dev/order_process/products) to make things more interesting 🚀
 
