@@ -20,7 +20,7 @@ class MenuItem extends React.Component {
             {/* <p>{product.description}</p> */}
             <button
               className="btn btn-success btn-sm"
-              onClick={e => {
+              onClick={(e) => {
                 this.props.orderFunctions.addToOrder(product.id);
               }}
             >

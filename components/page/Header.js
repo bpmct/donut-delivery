@@ -11,27 +11,40 @@ function Header(props) {
       >
         {process.env.SHOP_NAME}
       </a>
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
-          <a className="nav-link" href={process.env.SHOP_LANDING_PAGE}>
-            Home
-          </a>
-        </li>
-        <li className="nav-item active">
-          <Link href="/">
-            <a className="nav-link" href="#">
-              Deliveries <span className="sr-only">(current)</span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <a className="nav-link" href={process.env.SHOP_LANDING_PAGE}>
+              Home
             </a>
-          </Link>
-        </li>
-        <li className="nav-item disabled">
-          <Link href="/confirmation">
-            <a className="nav-link" href="#">
-              View order status <span className="sr-only">(current)</span>
-            </a>
-          </Link>
-        </li>
-      </ul>
+          </li>
+          <li className="nav-item active">
+            <Link href="/">
+              <a className="nav-link" href="#">
+                Deliveries <span className="sr-only">(current)</span>
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item disabled">
+            <Link href="/confirmation">
+              <a className="nav-link" href="#">
+                View order status <span className="sr-only">(current)</span>
+              </a>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 }

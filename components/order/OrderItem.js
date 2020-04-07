@@ -4,19 +4,19 @@ class OrderItem extends React.Component {
       <div className="card order-item">
         <div className="card-body">
           <div className="row">
-            <div className="col-6">
+            <div className="col-md-6">
               {this.props.name}: {this.props.quantity}
             </div>
-            <div className="col-6 text-right">
+            <div className="col-md-6 text-right">
               <button
-                onClick={e => {
+                onClick={(e) => {
                   this.props.orderFunctions.removeFromOrder(this.props.id);
                 }}
               >
                 ➖
               </button>{" "}
               <button
-                onClick={e => {
+                onClick={(e) => {
                   this.props.orderFunctions.addToOrder(this.props.id);
                 }}
               >

@@ -66,7 +66,7 @@ class Order_Page extends React.Component {
           />
           <br />
           <div className="row">
-            <div className="col-6">
+            <div className="col-md-6">
               <Menu
                 products={this.props.products}
                 order={this.props.order}
@@ -74,7 +74,7 @@ class Order_Page extends React.Component {
               />
             </div>
 
-            <div className="col-6">
+            <div className="col-md-6">
               <Order
                 products={this.props.products}
                 order={this.props.order}

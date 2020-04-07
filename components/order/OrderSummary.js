@@ -4,10 +4,12 @@ class OrderSummary extends React.Component {
     let currency = "";
 
     return (
-      <table className="table table-hover">
+      <table className="table table-hover table-responsive">
         <thead>
           <tr>
-            <th scope="col">Picture</th>
+            <th scope="col" className="d-none d-md-block">
+              Picture
+            </th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
@@ -16,7 +18,7 @@ class OrderSummary extends React.Component {
         </thead>
         <tbody>
           {Object.keys(this.props.order).map((product, i) => {
-            let thisProduct = this.props.products.find(thisProduct => {
+            let thisProduct = this.props.products.find((thisProduct) => {
               return thisProduct.id == this.props.order[product].product;
             });
             let thisQuantity = this.props.order[product].quantity;
@@ -37,7 +39,7 @@ class OrderSummary extends React.Component {
             totalPrice += itemsPrice;
             return (
               <tr key={thisProduct.id}>
-                <td>
+                <td className="d-none d-md-block">
                   <img src={image} width="150" alt={thisProduct.name} />
                 </td>
                 <td>{thisProduct.name}</td>
@@ -53,7 +55,7 @@ class OrderSummary extends React.Component {
             </td>
             <td></td>
             <td></td>
-            <td></td>
+            <td className="d-none d-md-block"></td>
             <td>{totalPrice + " " + currency}</td>
           </tr>
         </tbody>
