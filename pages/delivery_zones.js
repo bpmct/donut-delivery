@@ -34,7 +34,7 @@ class Delivery_Zones extends React.Component {
 
     return (
       <DonutApp>
-        <h1 className="text-center">🚗 Our delivery zones</h1>
+        <h1 className="text-center">🚗 Delivery zones</h1>
         <hr />
         <Link href="/">
           <a title="Back">⬅ Go back</a>

@@ -146,7 +146,7 @@ class Checkout extends React.Component {
               />
               <br />
               <div className="row">
-                <div className="col-lg-4 mb-sm-2 mb-lg-0 pr-lg-0">
+                <div className="col-lg-4 mb-2 mb-lg-0 pr-lg-0">
                   <input
                     type="text"
                     className="form-control"
@@ -158,7 +158,7 @@ class Checkout extends React.Component {
                     required
                   />
                 </div>
-                <div className="col-lg-4 mb-sm-2 mb-lg-0 pr-lg-0">
+                <div className="col-lg-4 mb-2 mb-lg-0 pr-lg-0">
                   <select
                     name="state"
                     className="form-control"
@@ -221,7 +221,7 @@ class Checkout extends React.Component {
                     <option value="WY">WY</option>
                   </select>
                 </div>
-                <div className="col-lg-4 mb-sm-2 mb-lg-0">
+                <div className="col-lg-4 mb-2 mb-lg-0">
                   <input
                     type="number"
                     className="form-control"

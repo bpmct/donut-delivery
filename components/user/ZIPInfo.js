@@ -51,20 +51,23 @@ class ZIPInfo extends React.Component {
   zipUnset() {
     return (
       <>
-        <form className="form-inline" onSubmit={this.updateZIP}>
+        <form
+          className="form-inline justify-content-center"
+          onSubmit={this.updateZIP}
+        >
           Enter your ZIP code to get started:{"  "}
           <input
-            style={{ marginLeft: 7 }}
+            style={{ marginLeft: 7, width: 100 }}
             type="number"
             name="zip"
             ref={this.zipInput}
             autoFocus
-            className="form-control form-control-sm"
+            className="form-control form-control-sm mt-2 mt-md-0"
           ></input>
           <button
             style={{ marginLeft: 7 }}
             type="submit"
-            className="btn btn-success btn-sm"
+            className="btn btn-success btn-sm mt-2 mt-md-0"
           >
             Go
           </button>
