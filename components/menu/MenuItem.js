@@ -24,7 +24,7 @@ class MenuItem extends React.Component {
                 this.props.orderFunctions.addToOrder(product.id);
               }}
             >
-              🛒 Add to order
+              🛒 Add
             </button>
           </div>
         </div>

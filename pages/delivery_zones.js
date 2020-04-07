@@ -39,7 +39,7 @@ class Delivery_Zones extends React.Component {
         <Link href="/">
           <a title="Back">⬅ Go back</a>
         </Link>
-        <div class="row mt-2">
+        <div className="row mt-2">
           <div className="col-md-6">
             <div className="card my-1 border-primary">
               <div className="card-body">
