@@ -10,14 +10,13 @@ A React (Next.js) donut delivery app. This app uses [BuiltOn](https://builton.de
 - Orders
 - Payments (↔️ with Stripe)
 
-This works with my [delivery-manager](https://github.com/bpmct/delivery-manager) application that allows employees/admins to view orders, change order status, refund, et.
+This works with my [delivery-manager](https://github.com/bpmct/delivery-manager) application that allows employees/admins to view orders, change order status, refunds, etc.
 
 ## Installation
 
-Long installs stuck. Especially if you just want to start playing around. We're planning on making a [simple script](https://github.com/bpmct/donut-delivery/issues/5) that makes it easy to start coding 😊
+🗺 If you use VS Code, use the [CodeTour](https://marketplace.visualstudio.com/items?itemName=vsls-contrib.codetour) extension to get install instructions in the IDE. Just open and the project in VS Code and start the tour!
 
-For now though, here's what you have to do:
-
+**Otherwise, follow these instructions to set up the project:**
 - Create a [free BuiltOn account](https://builton.dev)
 - Create a [Google Firebase project](https://firebase.com) and link it in to your BuiltOn dashboard.
 - Configure Firebase Auth to accept Google logins & guest accounts

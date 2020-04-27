@@ -1,0 +1,71 @@
+{
+  "title": "Development Setup",
+  "steps": [
+    {
+      "file": "next.config.js",
+      "line": 2,
+      "description": "We are using environment variables for settings. In almost all cases, you should **NOT** update this file, but instead set environment variables another way.\r\n\r\nThere are three ways to set environment variables for this program.\r\n\r\n1) .env.build file (good for development, bad for git repos) https://www.freecodecamp.org/news/nodejs-custom-env-files-in-your-apps-fa7b3e67abe1/\r\n\r\n2) Set environment variables in your system (or service)\r\n\r\n3) Use now secrets for deploying to Varcel: https://zeit.co/docs/v2/build-step#adding-secrets",
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 2,
+          "character": 15
+        }
+      }
+    },
+    {
+      "file": "next.config.js",
+      "line": 4,
+      "description": "In order to manage products and orders, we are using the BuiltOn.Dev API. Please sign up for a free account at https://builton.dev and set it as an environment variable.\r\n\r\nYou should also add some products in the BuiltOn dashboard so the store isn't blank 🚀",
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 21
+        },
+        "end": {
+          "line": 4,
+          "character": 48
+        }
+      }
+    },
+    {
+      "file": "next.config.js",
+      "line": 6,
+      "description": "We will be using Firebase for authentication. Set up a Firebase Project and set it up for web.\r\n\r\nhttps://firebase.google.com/\r\n\r\nEnsure that you have enabled Authentication for Google accounts & guest accounts. ",
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 5
+        },
+        "end": {
+          "line": 7,
+          "character": 62
+        }
+      }
+    },
+    {
+      "file": "next.config.js",
+      "line": 8,
+      "description": "Just the name of your shop. For example \"Ben's Donut Shop\""
+    },
+    {
+      "file": "next.config.js",
+      "line": 9,
+      "description": "The original site for the shop (not the delivery page).\r\n\r\nex. https://bens-shop.com"
+    },
+    {
+      "file": "next.config.js",
+      "line": 10,
+      "description": "Generate a JSON file with the the proper zip codes that you want to deliver to. Then upload the JSON file into `public/zip-codes.json` or upload it to another server.\r\n\r\nThen, set this environment variable to the proper location of this zip code file. Ex.\r\n\r\n`https://myhostingsite.com/zip_codes.json` or `/public/zip_codes.json`"
+    },
+    {
+      "file": "next.config.js",
+      "line": 13,
+      "description": "You're done! Start the project with `now dev`"
+    }
+  ],
+  "ref": "master"
+}
